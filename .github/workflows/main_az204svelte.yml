@@ -23,8 +23,15 @@ jobs:
         with:
           node-version: '18.x'
 
+      - name: Install dependencies and build
+        working-directory: ./svelte-demo
+        run: |
+          npm ci
+          npm run build
+
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        working-directory: ./svelte-demo
+        run: zip -r ../release.zip build/* server.js package.json package-lock.json
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -32,12 +39,9 @@ jobs:
           name: node-app
           path: release.zip
 
-  deploy:
+  deploy-staging:
     runs-on: ubuntu-latest
     needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
@@ -49,7 +53,7 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: unzip release.zip -d ./deploy
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -58,11 +62,14 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F0A2C46FD2B74B6EBF701F4F68664556 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6A39DE00D4CD4142A2B79B40F2FB0C5A }}
 
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
+      - name: 'Deploy to Azure Web App Staging'
+        id: deploy-to-webapp-staging
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'az204svelte'
-          slot-name: 'Production'
-          package: .
-          
+          slot-name: 'stage1'
+          package: ./deploy
+
+# Manual promotion to production
+# Use Azure portal or az cli to promote from stage1 to production
+# Example: az webapp deployment slot swap --resource-group myResourceGroup --name az204svelte --slot stage1 --target-slot production
