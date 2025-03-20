@@ -1,61 +1,39 @@
 <script lang="ts">
-	import { i18n } from '$lib/i18n';
-	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
-	import Header from './Header.svelte';
-	import '../app.css';
+  import { i18n } from '$lib/i18n';
+  import { ParaglideJS } from '@inlang/paraglide-sveltekit';
+  import Header from './Header.svelte';
+  import '../app.css';
 
-	let { children } = $props();
+  let { children } = $props();
 </script>
 
 <ParaglideJS {i18n}>
-	<div class="app">
-		<Header></Header>
-
-		<main>
-			{@render children()}
-		</main>
-
-		<footer>
-			<p>
-				visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to learn about SvelteKit
-			</p>
-		</footer>
-	</div>
+  <div class="flex flex-col min-h-screen">
+    <Header />
+    
+    <main class="flex-grow">
+      {@render children()}
+    </main>
+    
+    <footer class="bg-gray-800 text-white py-6">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col items-center justify-center">
+          <p class="text-sm text-gray-300">
+            &copy; {new Date().getFullYear()} Azure Weather App Demo
+          </p>
+          <div class="mt-2 flex space-x-4">
+            <a href="https://azure.microsoft.com" class="text-gray-300 hover:text-white">
+              Azure
+            </a>
+            <a href="https://learn.microsoft.com/en-us/azure/" class="text-gray-300 hover:text-white">
+              Documentation
+            </a>
+            <a href="https://github.com/microsoft/azure-repos-vscode" class="text-gray-300 hover:text-white">
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
 </ParaglideJS>
-
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
-</style>
