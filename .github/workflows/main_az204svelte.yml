@@ -31,7 +31,7 @@ jobs:
 
       - name: Zip artifact for deployment
         working-directory: ./svelte-demo
-        run: zip -r ../release.zip build/* server.js package.json package-lock.json
+        run: zip  ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -53,7 +53,7 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip -d ./deploy
+        run: unzip release.zip
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -68,8 +68,4 @@ jobs:
         with:
           app-name: 'az204svelte'
           slot-name: 'stage1'
-          package: ./deploy
-
-# Manual promotion to production
-# Use Azure portal or az cli to promote from stage1 to production
-# Example: az webapp deployment slot swap --resource-group myResourceGroup --name az204svelte --slot stage1 --target-slot production
+          package: '.'
