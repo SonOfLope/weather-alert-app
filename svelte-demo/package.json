@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && vite build",
+		"build": "paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide && vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -15,7 +15,7 @@
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"start": "node server.js",
-		"postinstall": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide"
+		"postinstall": "paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide"
 	},
 	"devDependencies": {
 		"@chromatic-com/storybook": "^3",
