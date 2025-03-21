@@ -8,7 +8,7 @@
 			"problemMatcher": "$func-java-watch",
 			"isBackground": true,
 			"options": {
-				"cwd": "${workspaceFolder}/weather-alert/build/azure-functions/weather-alert-1742570139518"
+				"cwd": "${workspaceFolder}/weather-alert/build/azure-functions/weather-alert"
 			},
 			"dependsOn": "package (functions)"
 		},
