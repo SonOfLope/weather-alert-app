@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+@import '@fontsource/fira-mono';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-sky-50 min-h-screen;
+  font-family: system-ui, -apple-system, sans-serif;
+}

@@ -1,0 +1,9 @@
+{
+    "azureFunctions.javaBuildTool": "gradle",
+    "azureFunctions.deploySubpath": "weather-alert/build/azure-functions/weather-alert-1742571987789",
+    "azureFunctions.projectLanguage": "Java",
+    "azureFunctions.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "package (functions)",
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
