@@ -21,13 +21,13 @@ jobs:
           node-version: '18.x'
 
       - name: Install dependencies and build
-        working-directory: ./svelte-demo
+        working-directory: ./weather-app
         run: |
           npm install
           npm run build
 
       - name: Zip artifact for deployment
-        working-directory: ./svelte-demo
+        working-directory: ./weather-app
         run: zip -r ../release.zip ./*
         
 

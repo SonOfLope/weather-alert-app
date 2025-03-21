@@ -1,0 +1,5 @@
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "hello_world": "Climat actuel à {name}",
+    "weather_deployment": "Déployé avec {platform}"
+}

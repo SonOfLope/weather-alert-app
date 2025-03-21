@@ -13,7 +13,6 @@ export const GET: RequestHandler = async ({ url }) => {
     const secretName = env.WEATHER_API_SECRET_NAME || 'OpenWeatherApiKey';
     
     if (!apiKey && keyVaultName) {
-      console.log('No API key found in environment, trying Azure Key Vault');
       try {
         const credential = new DefaultAzureCredential();
         const keyVaultUrl = `https://${keyVaultName}.vault.azure.net`;
@@ -29,7 +28,11 @@ export const GET: RequestHandler = async ({ url }) => {
       try {
         
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`,
+          { 
+            timeout: 10000,
+            signal: AbortSignal.timeout(10000)
+          }
         );
         
         if (!response.ok) {

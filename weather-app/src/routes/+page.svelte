@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { hello_world } from '$lib/paraglide/messages';
-
+  import * as m from "$lib/paraglide/messages";
+  
   let weather = {
     temperature: 0,
     description: '',
@@ -55,9 +55,11 @@
   <div class="max-w-lg mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
     <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 text-white">
       <h1 class="text-3xl font-bold">
-        {hello_world({ name: weather.city })}
+        {m.hello_world({ name: weather.city })}
       </h1>
-      <p class="text-blue-100">Weather App deployed on Azure</p>
+      <p class="text-blue-100">
+        {m.weather_deployment({ platform: "Azure App Service" })}
+      </p>
     </div>
     
     <div class="p-6">
