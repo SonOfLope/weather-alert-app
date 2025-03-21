@@ -68,5 +68,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'az204svelte'
-          slot-name: 'az204svelte'
+          slot-name: 'Production'
           package: '.'
