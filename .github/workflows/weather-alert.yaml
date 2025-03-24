@@ -10,7 +10,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: az204-weather-alert
-  PACKAGE_DIRECTORY: './weather-alert'
+  PACKAGE_DIRECTORY: 'weather-alert'
   JAVA_VERSION: '17'
 
 jobs:
