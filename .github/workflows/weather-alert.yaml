@@ -47,8 +47,8 @@ jobs:
         with:
           gradle-version: "8.13"
 
-      - name: Execute Gradle build
-        run: gradle build
+      - name: Execute Gradle Azure Functions package
+        run: gradle azureFunctionsPackage
         working-directory: ${{ env.PACKAGE_DIRECTORY }}
 
       - name: Generate and submit dependency graph
