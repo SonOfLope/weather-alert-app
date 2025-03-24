@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - './weather-alert/**'
   workflow_dispatch:
 
 env:
