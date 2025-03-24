@@ -1,7 +1,17 @@
-# Montreal Weather App - Azure App Service Demo
+# Montreal Weather App with Alerting - Azure App Service Demo
 
 This is a weather application for Montreal built with SvelteKit and deployed to
-Azure App Service.
+Azure App Service. It includes an alerting mechanism that monitors temperature
+and triggers alerts via an Azure Function when extreme temperatures are detected.
+
+## Features
+
+- Real-time weather display for Montreal
+- HTMX-based polling to refresh data every 5 minutes
+- Automatic temperature threshold monitoring:
+  - Cold alert when temperature falls below 10°C
+  - Heat alert when temperature rises above 20°C
+- Integration with Azure Function for email alerting
 
 ## Setup
 
@@ -10,6 +20,13 @@ Azure App Service.
    Configuration](#azure-key-vault-configuration) for Key Vault setup.
 3. Install dependencies: `npm install`
 4. Run the development server: `npm run dev`
+
+## Environment Variables
+
+- `OPENWEATHER_API_KEY`: Your OpenWeather API key (optional if using Key Vault)
+- `KEY_VAULT_NAME`: Your Azure Key Vault name
+- `WEATHER_API_SECRET_NAME`: Secret name in Key Vault (default: OpenWeatherApiKey)
+- `AZURE_FUNCTION_URL`: URL to your Weather Alert Azure Function
 
 ## Azure Deployment
 
@@ -44,3 +61,18 @@ The application is set up to deploy to Azure App Service with:
 5. Set the environment variables in App Service Configuration:
    - `KEY_VAULT_NAME`: Your Key Vault name
    - `WEATHER_API_SECRET_NAME`: Secret name (default: OpenWeatherApiKey)
+   - `AZURE_FUNCTION_URL`: URL to your Weather Alert Azure Function
+
+## Architecture
+
+The application has two main components:
+
+1. **Frontend (SvelteKit)**: Displays weather data and handles threshold checking
+   - Uses HTMX for automatic polling every 5 minutes
+   - Triggers alerts when temperature thresholds are crossed
+
+2. **Backend (Azure Function)**: Handles email alerting
+   - Receives temperature data via HTTP POST
+   - Uses Azure Table Storage to track alert history
+   - Implements cooldown period to prevent duplicate alerts
+   - Sends email alerts using SendGrid
