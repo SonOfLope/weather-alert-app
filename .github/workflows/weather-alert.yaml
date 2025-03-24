@@ -55,6 +55,7 @@ jobs:
         uses: gradle/actions/dependency-submission@v4
         with:
           build-root-directory: ${{ env.PACKAGE_DIRECTORY }}
+          gradle-version: "8.13"
 
       - name: Login to Azure
         uses: azure/login@v2
