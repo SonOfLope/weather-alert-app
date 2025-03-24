@@ -32,11 +32,21 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ env.JAVA_VERSION }}
 
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.13"
-  
+
       - name: Execute Gradle build
         run: gradle build
         working-directory: ${{ env.PACKAGE_DIRECTORY }}
@@ -45,13 +55,13 @@ jobs:
         uses: gradle/actions/dependency-submission@v4
         with:
           build-root-directory: ${{ env.PACKAGE_DIRECTORY }}
-    
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
-            client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6825A8BBB6054717A51D3387CB0BDAA2 }}
-            tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F0A2C46FD2B74B6EBF701F4F68664556 }}
-            subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6A39DE00D4CD4142A2B79B40F2FB0C5A }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6825A8BBB6054717A51D3387CB0BDAA2 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F0A2C46FD2B74B6EBF701F4F68664556 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6A39DE00D4CD4142A2B79B40F2FB0C5A }}
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
