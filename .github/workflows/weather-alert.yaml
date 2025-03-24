@@ -12,6 +12,7 @@ env:
   AZURE_FUNCTIONAPP_NAME: az204-weather-alert
   PACKAGE_DIRECTORY: 'weather-alert'
   JAVA_VERSION: '17'
+  Build_APP_NAME: 'weather-alert-1742571987789'
 
 jobs:
 
@@ -30,8 +31,20 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.13"
+  
+      - name: Execute Gradle build
+        run: gradle build
+        working-directory: ${{ env.PACKAGE_DIRECTORY }}
+
       - name: Generate and submit dependency graph
         uses: gradle/actions/dependency-submission@v4
+        with:
+          build-root-directory: ${{ env.PACKAGE_DIRECTORY }}
     
       - name: Login to Azure
         uses: azure/login@v2
@@ -45,4 +58,4 @@ jobs:
         id: fa
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: '${{ env.PACKAGE_DIRECTORY }}'
+          package: '${{ env.PACKAGE_DIRECTORY }}/build/azure-functions/${{ env.Build_APP_NAME }}'
