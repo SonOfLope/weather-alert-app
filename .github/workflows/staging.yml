@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - './weather-app/**'
+      - 'weather-app/**'
   workflow_dispatch:
 
 jobs:
