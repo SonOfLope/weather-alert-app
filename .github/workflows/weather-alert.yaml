@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - './weather-alert/**'
+      - 'weather-alert/**'
   workflow_dispatch:
 
 env:
