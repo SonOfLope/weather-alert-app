@@ -7,7 +7,7 @@ and triggers alerts via an Azure Function when extreme temperatures are detected
 ## Features
 
 - Real-time weather display for Montreal
-- HTMX-based polling to refresh data every 5 minutes
+- Automatic refresh capabilities
 - Automatic temperature threshold monitoring:
   - Cold alert when temperature falls below 10°C
   - Heat alert when temperature rises above 20°C
@@ -68,7 +68,7 @@ The application is set up to deploy to Azure App Service with:
 The application has two main components:
 
 1. **Frontend (SvelteKit)**: Displays weather data and handles threshold checking
-   - Uses HTMX for automatic polling every 5 minutes
+   - Regular API calls to fetch current weather data
    - Triggers alerts when temperature thresholds are crossed
 
 2. **Backend (Azure Function)**: Handles email alerting

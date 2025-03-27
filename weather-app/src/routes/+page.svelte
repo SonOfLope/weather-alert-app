@@ -125,10 +125,26 @@
     }
   }
   
-  onMount(async () => {
-    await updateWeather();
-    await fetchAlertHistory();
-  });
+  // Function to periodically refresh weather data
+  function setupRefreshInterval() {
+    // Initial update
+    updateWeather();
+    fetchAlertHistory();
+    
+    // Set up 5-minute refresh interval
+    const refreshInterval = setInterval(() => {
+      console.log("[DEBUG] Auto-refreshing weather data");
+      updateWeather();
+      fetchAlertHistory();
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+    
+    // Clean up interval on component unmount
+    return () => {
+      clearInterval(refreshInterval);
+    };
+  }
+
+  onMount(setupRefreshInterval);
 </script>
 
 <svelte:head>
